@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../repositories/auth_repository.dart';
-import '../views/project/project_list_view.dart';
 
 class AuthController extends GetxController {
   static AuthController get instance => Get.find();
@@ -20,28 +18,21 @@ class AuthController extends GetxController {
 
   Stream get authStateChanges => _repo.authStateChanges;
 
-  void login(String email, String password) async {
-    // Validation
+  Future<void> login(String email, String password) async {
     if (email.isEmpty || password.isEmpty) {
       Get.snackbar('Error', 'Email and password cannot be empty', snackPosition: SnackPosition.BOTTOM);
       return;
     }
-
     isLoading.value = true;
 
     try {
-      final user = await _repo.login(email, password);
-      if (user != null) {
-        Get.offAll(() => const ProjectListView());
-      }
+      await _repo.login(email, password);
     } on FirebaseAuthException catch (e) {
       Get.snackbar(
-        "Login Successful",
+        "Login Unsuccessful",
         e.message ?? "An unknown error occurred",
         snackPosition: SnackPosition.BOTTOM,
       );
-    } catch (e) {
-      Get.snackbar("Error", "Unexpected error: $e");
     } finally {
       isLoading.value = false;
     }
@@ -51,20 +42,20 @@ class AuthController extends GetxController {
     try {
       await _repo.signup(email, password);
     } catch (e) {
-      // Get.snackbar("Signup Failed", e.toString());
+      Get.snackbar('Error', e.toString());
     }
   }
 
   Future<void> resetPassword(String email) async {
     try {
       await _repo.resetPassword(email);
-      // Get.snackbar("Success", "Password reset email sent.");
     } catch (e) {
-      // Get.snackbar("Error", e.toString());
+      Get.snackbar('Error', e.toString());
     }
   }
 
   Future<void> logout() async {
     await _repo.logout();
+    Get.snackbar('LogOut', 'SuccessFul'.toString());
   }
 }

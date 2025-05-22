@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/project_controller.dart';
-import '../auth/login_view.dart';
 import '../chart/chart_data_view.dart';
 import '../project/project_list_view.dart';
 import '../media/media_view.dart';
@@ -18,8 +17,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(authController.userName() ?? ''),
-
+        title: Text(authController.userName()),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
         actions: [
@@ -35,7 +33,7 @@ class HomeView extends StatelessWidget {
                 confirmTextColor: Colors.white,
                 onConfirm: () {
                   authController.logout();
-                  Get.offAll(() => LoginView());
+                  Navigator.of(context).pop();
                 },
               );
             },

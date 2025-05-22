@@ -5,9 +5,7 @@ class AuthRepository {
 
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  // Future<UserCredential> login(String email, String password) async {
-  //  var userCredential =  await _auth.signInWithEmailAndPassword(email: email, password: password);
-  //  return userCredential;
+
 
   Future<User?> login(String email, String password) async {
     final result = await _auth.signInWithEmailAndPassword(email: email, password: password);

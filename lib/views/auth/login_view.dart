@@ -1,4 +1,3 @@
-import 'package:assign_project_s/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controllers/auth_controller.dart';
@@ -40,14 +39,6 @@ class LoginView extends StatelessWidget {
                         child: const Text('Login'),
                       ),
             ),
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     await controller.login(emailCtrl.text, passCtrl.text).then((onValue) {
-            //       return Get.to(HomeView());
-            //     });
-            //   },
-            //   child: Text("Login"),
-            // ),
             TextButton(
               onPressed: () => Get.to(() => SignupView()),
               child: Text("Don't have an account? Sign up"),
