@@ -42,7 +42,7 @@ class AuthController extends GetxController {
     try {
       await _repo.signup(email, password);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+     // Get.snackbar('Error', e.toString());
     }
   }
 

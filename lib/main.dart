@@ -50,15 +50,12 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // FirebaseAuth.instance.ac
-    return SafeArea(
-      child: Scaffold(
-        body: StreamBuilder(
-          stream: controller.authStateChanges,
-          builder: (context, snapshot) {
-            return snapshot.hasData && (snapshot.data != null) ? HomeView() : LoginView();
-          },
-        ),
+    return Scaffold(
+      body: StreamBuilder(
+        stream: controller.authStateChanges,
+        builder: (context, snapshot) {
+          return snapshot.hasData && (snapshot.data != null) ? HomeView() : LoginView();
+        },
       ),
     );
   }

@@ -11,6 +11,7 @@ class AddProjectView extends StatelessWidget {
   final descriptionController = TextEditingController();
   final latController = TextEditingController();
   final lngController = TextEditingController();
+  final budgetController = TextEditingController();
 
   final repo = ProjectRepository();
 
@@ -37,6 +38,11 @@ class AddProjectView extends StatelessWidget {
               decoration: InputDecoration(labelText: "Longitude"),
               keyboardType: TextInputType.number,
             ),
+            TextField(
+              controller: budgetController,
+              decoration: InputDecoration(labelText: "Budget"),
+              keyboardType: TextInputType.number,
+            ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
@@ -44,6 +50,7 @@ class AddProjectView extends StatelessWidget {
                 final desc = descriptionController.text.trim();
                 final lat = double.tryParse(latController.text) ?? 0.0;
                 final lng = double.tryParse(lngController.text) ?? 0.0;
+                double budget = double.tryParse(budgetController.text) ?? 0.0;
 
                 if (name.isEmpty || desc.isEmpty) {
                   Get.snackbar("Error", "Please fill all fields");
@@ -51,7 +58,13 @@ class AddProjectView extends StatelessWidget {
                 }
 
                 await repo.addProject(
-                  ProjectModel(id: '', name: name, description: desc, location: GeoPoint(lat, lng)),
+                  ProjectModel(
+                    id: '',
+                    name: name,
+                    description: desc,
+                    location: GeoPoint(lat, lng),
+                    budget: budget,
+                  ),
                 );
                 Get.back(); // go back to project list
               },

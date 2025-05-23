@@ -13,10 +13,15 @@ class ProjectListView extends StatelessWidget {
     controller.filteredProjects.value = controller.allProjects;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Projects'),
-        actions: [IconButton(icon: const Icon(Icons.add), onPressed: () => Get.to(() => AddProjectView()))],
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: null,
+        onPressed: () {
+          Get.to(() => AddProjectView());
+        },
+        label: const Text("Add Project"),
+        icon: const Icon(Icons.add),
       ),
+      appBar: AppBar(title: const Text('Projects')),
       body: Column(
         children: [
           Padding(
